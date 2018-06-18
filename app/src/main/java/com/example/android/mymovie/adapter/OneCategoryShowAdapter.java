@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.android.mymovie.R;
-import com.example.android.mymovie.pojo.ListShowItem;
+import com.example.android.mymovie.pojo.Result;
+import com.example.android.mymovie.sync.NetworkInfo;
 
 import java.util.ArrayList;
 
 public class OneCategoryShowAdapter extends RecyclerView.Adapter<OneCategoryShowAdapter.CategoryViewholder> {
     Context mContext;
-    ArrayList<ListShowItem> mListShowItems;
+    ArrayList<Result> results;
     private static final int SHOW_ITEM_NUM = 6;
     public OneCategoryShowAdapter(Context context){
         mContext = context;
@@ -25,22 +27,32 @@ public class OneCategoryShowAdapter extends RecyclerView.Adapter<OneCategoryShow
     @NonNull
     @Override
     public OneCategoryShowAdapter.CategoryViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView cardView = (CardView) LayoutInflater.from(mContext).inflate(R.layout.fragment_one_category_show,parent,false);
-        CategoryViewholder categoryViewholder = new CategoryViewholder(cardView);
-        return null;
+        CardView roootView = (CardView) LayoutInflater.from(mContext).inflate(R.layout.one_category_show_item,parent,false);
+        CategoryViewholder categoryViewholder = new CategoryViewholder(roootView);
+        return categoryViewholder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull OneCategoryShowAdapter.CategoryViewholder holder, int position) {
-        ListShowItem showItem = mListShowItems.get(position);
-        holder.showImgV.setImageBitmap(showItem.getShowImage());
-        holder.showTitleV.setText(showItem.getShowTitle());
-        holder.showScoreV.setText(String.valueOf(showItem.getShowScore()));
+        if (results!=null){
+            Result show = results.get(position);
+            holder.bindData(show);
+        }
+
+
+        /*Uri imageUri = new Uri.Builder()
+                .authority(com.example.android.mymovie.sync.NetworkInfo.IMAGE_BASE_URL)
+                .appendPath(imagePath).build();*/
+
     }
+
 
     @Override
     public int getItemCount() {
-        return SHOW_ITEM_NUM;
+        if (results!=null){
+            return results.size();
+        }
+        return 0;
     }
 
     public class CategoryViewholder extends RecyclerView.ViewHolder{
@@ -52,9 +64,17 @@ public class OneCategoryShowAdapter extends RecyclerView.Adapter<OneCategoryShow
             showTitleV = itemView.findViewById(R.id.one_category_show_title);
             showScoreV = itemView.findViewById(R.id.one_category_show_score);
         }
+
+        public void bindData(Result show){
+            String imagePath = show.getPosterPath();
+            Glide.with(mContext).load(NetworkInfo.IMAGE_BASE_URL+imagePath).into(showImgV);
+            showTitleV.setText(show.getTitle());
+            showScoreV.setText(String.valueOf(show.getVoteAverage()));
+        }
     }
 
-    public void setmListShowItems(ArrayList<ListShowItem> mListShowItems) {
-        this.mListShowItems = mListShowItems;
+    public void setResults(ArrayList<Result> results) {
+        this.results = results;
+        notifyDataSetChanged();
     }
 }

@@ -6,6 +6,7 @@
     <string name="search_hint">Search movie, tv show or people</string>
     <string name="search_menu_title">Search</string>
     <string name="latest_show_label">Latest</string>
+    <string name="most_popular_label">Most Popular</string>
     <string name="now_playing_label">Now Playing</string>
     <string name="upcoming_label">Upcoming</string>
     <string name="top_rated_label">Top Rated</string>

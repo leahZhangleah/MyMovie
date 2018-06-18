@@ -1,19 +1,19 @@
 package com.example.android.mymovie.pojo;
 
-import android.graphics.Bitmap;
-
 public class ListShowItem {
-    private Bitmap showImage;
+    private int movieId;
+    private int showImage;
     private String showTitle;
     private double showScore;
 
-    public ListShowItem(Bitmap showImage, String showTitle, double showScore) {
+    public ListShowItem(int showImage, String showTitle, double showScore, int movieId) {
         this.showImage = showImage;
         this.showTitle = showTitle;
         this.showScore = showScore;
+        this.movieId = movieId;
     }
 
-    public Bitmap getShowImage() {
+    public int getShowImage() {
         return showImage;
     }
 
@@ -23,5 +23,9 @@ public class ListShowItem {
 
     public double getShowScore() {
         return showScore;
+    }
+
+    public int getMovieId() {
+        return movieId;
     }
 }
