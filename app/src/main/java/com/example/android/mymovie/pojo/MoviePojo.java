@@ -20,17 +20,10 @@ public class MoviePojo {
         return page;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
     public List<Result> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
 
 }
 

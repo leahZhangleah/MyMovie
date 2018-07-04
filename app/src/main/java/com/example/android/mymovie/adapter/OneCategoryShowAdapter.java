@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.android.mymovie.sync.NetworkInfo;
 import java.util.ArrayList;
 
 public class OneCategoryShowAdapter extends RecyclerView.Adapter<OneCategoryShowAdapter.CategoryViewholder> {
+    private String TAG = OneCategoryShowAdapter.class.getName();
     Context mContext;
     ArrayList<Result> results;
     private static final int SHOW_ITEM_NUM = 6;
@@ -38,12 +40,6 @@ public class OneCategoryShowAdapter extends RecyclerView.Adapter<OneCategoryShow
             Result show = results.get(position);
             holder.bindData(show);
         }
-
-
-        /*Uri imageUri = new Uri.Builder()
-                .authority(com.example.android.mymovie.sync.NetworkInfo.IMAGE_BASE_URL)
-                .appendPath(imagePath).build();*/
-
     }
 
 
@@ -70,6 +66,7 @@ public class OneCategoryShowAdapter extends RecyclerView.Adapter<OneCategoryShow
             Glide.with(mContext).load(NetworkInfo.IMAGE_BASE_URL+imagePath).into(showImgV);
             showTitleV.setText(show.getTitle());
             showScoreV.setText(String.valueOf(show.getVoteAverage()));
+            Log.i(TAG,"the data is allocated to each view");
         }
     }
 

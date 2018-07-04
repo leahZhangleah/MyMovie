@@ -12,4 +12,8 @@ public interface NetworkInterface {
     Call<MoviePojo> getMovie(@Path("category") String category,
                              @Query("api_key") String api_key,
                              @Query("page") int page);
+    @GET("tv/{category}")
+    Call<MoviePojo> getTvShow(@Path("category") String category,
+                             @Query("api_key") String api_key,
+                             @Query("page") int page);
 }
